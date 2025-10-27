@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ZevraCorp: Building a Brighter Tomorrow</title>
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+    <style>
+        /* Custom corporate blue color based on book description: "confident, corporate blue" */
+        .zevra-blue {
+            background-color: #0E7490; /* Teal/Cyan for a confident blue feel */
+        }
+        .zevra-blue-text {
+            color: #0E7490;
+        }
+        .zevra-logo-glow {
+            text-shadow: 0 0 10px rgba(14, 116, 144, 0.7);
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc;
+        }
+        .card {
+            transition: transform 0.3s ease;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+        }
+    </style>
+</head>
+<body class="text-gray-800">
+
+    <!-- Header & Navigation -->
+    <header class="zevra-blue text-white shadow-lg sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
+            <!-- ZevraCorp Logo (Stylized Z) -->
+            <a href="#" class="text-3xl font-extrabold tracking-widest zevra-logo-glow">
+                ZevraCorp
+            </a>
+            <!-- Desktop Navigation -->
+            <nav class="hidden md:flex space-x-8 text-sm font-semibold">
+                <a href="#about" class="hover:text-cyan-200 transition duration-300">About Us</a>
+                <a href="#philosophy" class="hover:text-cyan-200 transition duration-300">Our Philosophy</a>
+                <a href="#leadership" class="hover:text-cyan-200 transition duration-300">Leadership</a>
+                <a href="#products" class="hover:text-cyan-200 transition duration-300">Flagship Products</a>
+                <a href="#subsidiaries" class="hover:text-cyan-200 transition duration-300">Our Divisions</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="relative zevra-blue text-white py-24 sm:py-32 overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h1 class="text-5xl sm:text-7xl font-extrabold mb-4 zevra-logo-glow">
+                Architecting the Next-Generation Human Paradigm
+            </h1>
+            <p class="text-xl sm:text-2xl font-light max-w-3xl mx-auto mb-8">
+                ZevraCorp operates as a foundational, multinational consortium, leveraging synergistic technological assets to enable the proactive optimization of global socioeconomic dynamics through an unparalleled understanding of core human-interaction metrics. We are the fiduciary architects of sentient societal evolution.
+            </p>
+            <div class="mt-10 flex justify-center space-x-4">
+                <a href="#products" class="px-8 py-3 bg-white text-gray-800 font-semibold rounded-full shadow-xl hover:bg-gray-200 transition duration-300">
+                    Explore Our Innovation Ecosystem
+                </a>
+            </div>
+        </div>
+        <!-- Abstract background shape -->
+        <svg class="absolute inset-0 w-full h-full opacity-10" viewBox="0 0 100 100" preserveAspectRatio="none">
+            <defs>
+                <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" style="stop-color:white; stop-opacity:0.3" />
+                    <stop offset="100%" style="stop-color:white; stop-opacity:0" />
+                </linearGradient>
+            </defs>
+            <circle cx="50" cy="50" r="50" fill="url(#gradient)"/>
+            <path d="M 0 0 L 100 0 L 100 100 Z" fill="rgba(0,0,0,0.1)" />
+        </svg>
+    </section>
+
+    <!-- About Us Section -->
+    <section id="about" class="py-16 sm:py-24 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="lg:flex lg:items-center lg:space-x-12">
+                <div class="lg:w-1/2">
+                    <h2 class="text-4xl font-bold mb-6 zevra-blue-text">Global Nexus for Infrastructural Preeminence</h2>
+                    <p class="mb-6 text-lg text-gray-600">
+                        ZevraCorp maintains its position as the undisputed global nexus for infrastructural and architectural preeminence. Our expansive operational footprint is anchored by a singular, non-negotiable directive: the holistic enhancement of experiential quality through perpetually engineered, high-fidelity technological platforms.
+                    </p>
+                    <p class="mb-6 text-lg text-gray-600">
+                        Our market leadership is a demonstrable outcome of our proactive forecasting methodologies, ensuring the permanent disintermediation of systemic human error for the establishment of a perfectly resilient societal matrix.
+                    </p>
+                    <p class="text-lg font-medium zevra-blue-text">
+                        — The ZevraCorp Mandate: Predictive Innovation. Absolute Security. Optimal Well-being.
+                    </p>
+                </div>
+                <div class="lg:w-1/2 mt-10 lg:mt-0">
+                    <!-- Placeholder for the headquarters image mentioned as "beacon of modern architecture" -->
+                    <div class="rounded-xl shadow-2xl p-6 bg-gray-100 border border-gray-200">
+                        <p class="text-center text-gray-500 italic">
+                            
+                        </p>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-full h-64 text-gray-300 mx-auto mt-4" viewBox="0 0 24 24" fill="currentColor">
+                          <path d="M12 0L0 12h3v10h18v-10h3L12 0zm0 4.5l6 6V20h-4v-6h-4v6H6v-9.5l6-6z"/>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ZevraCorp Philosophy/Propaganda Section (NEW) -->
+    <section id="philosophy" class="py-16 sm:py-24 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 class="text-4xl font-bold mb-6 zevra-blue-text">Our Unwavering Commitment to Systemic Progress</h2>
+            <p class="text-xl max-w-4xl mx-auto text-gray-600 mb-12">
+                We are dedicated to the establishment of a future devoid of stochastic human volatility. Every ZevraCorp innovation constitutes a measurable step toward the permanent eradication of global turmoil and the instantiation of an era defined by pure, predictable, and managed prosperity.
+            </p>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="bg-white p-6 rounded-xl shadow-lg border-b-4 border-cyan-500">
+                    <h3 class="text-2xl font-semibold mb-2 zevra-blue-text">Societal Equilibrium</h3>
+                    <p class="text-gray-600">
+                        Our core mandate transcends mere fiscal optimization; it is the systemic deployment of controlled, proprietary technological integration protocols to achieve absolute societal equilibrium.
+                    </p>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-lg border-b-4 border-green-500">
+                    <h3 class="text-2xl font-semibold mb-2 zevra-blue-text">Infrastructure-Agnostic Functionality</h3>
+                    <p class="text-gray-600">
+                        We function as the singular, infrastructure-agnostic global architect, ensuring the continuous and seamless operational functionality of all critical civic and digital lifelines through our managed service architecture.
+                    </p>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-lg border-b-4 border-indigo-500">
+                    <h3 class="text-2xl font-semibold mb-2 zevra-blue-text">Stochastic Mitigation</h3>
+                    <p class="text-gray-600">
+                        Our proprietary technological suite is rigorously calibrated for the unilateral mitigation of all stochastic unpredictability, thereby guaranteeing every citizen a stable, predictive, and fulfilling long-term socio-economic trajectory.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Leadership Section -->
+    <section id="leadership" class="py-16 sm:py-24 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 class="text-4xl font-bold mb-12 zevra-blue-text">Pinnacle Governance & Visionary Oversight</h2>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+                <!-- Leader 1: Dr. Alistair Rourke (CEO) -->
+                <div class="bg-gray-50 p-8 rounded-xl shadow-lg border border-gray-200 card">
+                    <div class="w-32 h-32 bg-gray-200 rounded-full mx-auto mb-6 flex items-center justify-center text-4xl font-bold text-gray-500">
+                        AR
+                    </div>
+                    <h3 class="text-2xl font-semibold mb-2">Dr. Alistair Rourke</h3>
+                    <p class="text-lg zevra-blue-text font-medium mb-4">Chief Executive Officer & Visionary Principal</p>
+                    <p class="text-gray-600 italic">
+                        "Dr. Rourke's strategic acuity and pioneering foresight have guided ZevraCorp to the undisputed forefront of global innovation, embodying the spirit of a true paradigmatic architect."
+                    </p>
+                </div>
+
+                <!-- Leader 2: Dr. Theron (Lead Scientist) -->
+                <div class="bg-gray-50 p-8 rounded-xl shadow-lg border border-gray-200 card">
+                    <div class="w-32 h-32 bg-gray-200 rounded-full mx-auto mb-6 flex items-center justify-center text-4xl font-bold text-gray-500">
+                        DT
+                    </div>
+                    <h3 class="text-2xl font-semibold mb-2">Dr. Theron</h3>
+                    <p class="text-lg zevra-blue-text font-medium mb-4">Lead Researcher, Posyde Division - Behavioral Homeostasis</p>
+                    <p class="text-gray-600 italic">
+                        "Dr. Theron is the essential pillar of our research vector, directing the empirical advancements that underpin our core technological efficacy and human-centric processing."
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Flagship Products Section -->
+    <section id="products" class="py-16 sm:py-24 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-4xl font-bold text-center mb-12 zevra-blue-text">Flagship Innovations & Predictive Solutions</h2>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-10">
+                <!-- Product 1: SynaptiCare -->
+                <div class="bg-white p-8 rounded-xl shadow-lg border-t-4 border-cyan-500 card">
+                    <h3 class="text-3xl font-bold mb-4 flex items-center space-x-3">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-cyan-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14h2v2h-2v-2zm0-8h2v6h-2V8z"/></svg>
+                        <span>SynaptiCare: Cognitive Augmentation</span>
+                    </h3>
+                    <p class="text-gray-600 mb-6">
+                        SynaptiCare represents the apex of neuro-cognitive augmentation science. It is the future of managed behavioral homeostasis.
+                    </p>
+                    <ul class="list-disc list-inside space-y-2 text-gray-700 font-medium">
+                        <li>Ensures the definitive cessation of counter-productive psycho-emotional burdens (anxiety and depressive states).</li>
+                        <li>A proprietary biometric data aggregation and responsive therapeutic platform engineered by Posyde.</li>
+                        <li>Delivering guaranteed, unparalleled global serenity and intrinsic contentment to our expanding user base.</li>
+                    </ul>
+                </div>
+
+                <!-- Product 2: LifeSync (Social Media App) - Expanded with Rollout Promises -->
+                <div class="bg-white p-8 rounded-xl shadow-lg border-t-4 border-indigo-500 card">
+                    <h3 class="text-3xl font-bold mb-4 flex items-center space-x-3">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-indigo-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 18a2 2 0 0 0 2-2V7.5L12 2 6 7.5V16a2 2 0 0 0 2 2h8z"/><path d="M12 22l-1-1"/></svg>
+                        <span>LifeSync: Managed Socialization Meta-Platform</span>
+                    </h3>
+                    <p class="text-gray-600 mb-6">
+                        Our premier meta-platform for managed digital socialization and adolescent developmental modeling. LifeSync is a ubiquitous resource for the future of learning and calibrated peer-to-peer interactive protocols.
+                    </p>
+                    <ul class="list-disc list-inside space-y-2 text-gray-700 font-medium">
+                        <li>Rollout Edict 1.0: The implementation of a hyper-regulated, proprietary digital ecosystem ensuring zero-tolerance latency for security breaches and the preemptive curation of all non-conforming content vectors.</li>
+                        <li>Rollout Edict 2.0: Deployment of longitudinal, custom-calibrated pedagogical schemas designed for the maximal optimization of innate user intellectual capacity.</li>
+                        <li>Rollout Edict 3.0: Facilitating optimal, supervised peer-to-peer interactive protocols within a comprehensively behaviorally modeled operational environment.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Subsidiary Divisions Section -->
+    <section id="subsidiaries" class="py-16 sm:py-24 zevra-blue text-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-4xl font-bold text-center mb-12">Our Specialized Divisions: Global Sector Efficacy</h2>
+            <p class="text-center text-xl font-light mb-16 max-w-4xl mx-auto">
+                ZevraCorp’s institutional success is derived from the dedication and granular expertise of its highly specialized, high-impact subsidiaries, driving measurable global systemic efficacy across all critical economic vectors.
+            </p>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- Division 1: PowerCore -->
+                <div class="bg-white p-6 rounded-xl text-gray-800 shadow-xl card">
+                    <div class="text-4xl font-bold text-red-600 mb-3">PowerCore</div>
+                    <p class="font-semibold text-lg mb-2">Global Kinetic and Power Systems Optimization</p>
+                    <p class="text-sm text-gray-600">
+                        Responsible for the fiduciary oversight of planet-wide kinetic infrastructure, guaranteeing uninterrupted operational redundancy for all progressive objectives through managed power grids.
+                    </p>
+                </div>
+
+                <!-- Division 2: Tharox -->
+                <div class="bg-white p-6 rounded-xl text-gray-800 shadow-xl card">
+                    <div class="text-4xl font-bold text-green-600 mb-3">Tharox</div>
+                    <p class="font-semibold text-lg mb-2">Advanced Sentient Automation & Process Re-engineering</p>
+                    <p class="text-sm text-gray-600">
+                        Specializing in sophisticated autonomous systems integration and algorithmic workflow disintermediation to achieve transcendent operational efficiency across industries.
+                    </p>
+                </div>
+
+                <!-- Division 3: Posyde -->
+                <div class="bg-white p-6 rounded-xl text-gray-800 shadow-xl card">
+                    <div class="text-4xl font-bold text-blue-600 mb-3">Posyde</div>
+                    <p class="font-semibold text-lg mb-2">Proprietary Generative Discovery & Translational Science</p>
+                    <p class="text-sm text-gray-600">
+                        Our dedicated research vector, engaged in the perpetual pursuit of empirical boundaries and the expedited translation of theoretical science into market-ready assets (e.g., SynaptiCare).
+                    </p>
+                </div>
+
+                <!-- Division 4: Hermox Media (NEW) -->
+                <div class="bg-white p-6 rounded-xl text-gray-800 shadow-xl card">
+                    <div class="text-4xl font-bold text-orange-600 mb-3">Hermox Media</div>
+                    <p class="font-semibold text-lg mb-2">Global Narrative Synthesis & Informational Asset Dissemination</p>
+                    <p class="text-sm text-gray-600">
+                        Mandated with the preemptive curvature of global confidence protocols and the unilateral assurance of data veracity. Curates and distributes all uplifting, proprietary technological dissemination content across the global socio-digital matrix.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <p class="text-2xl font-bold mb-2">ZevraCorp: Shaping the Systemic Future</p>
+            <p class="text-sm text-gray-400">&copy; 2025 Zevra Corporation. All rights reserved. | Global Conglomerate of Predictive Efficacy</p>
+        </div>
+    </footer>
+
+</body>
+</html>
