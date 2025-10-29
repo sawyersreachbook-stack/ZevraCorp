@@ -1,274 +1,529 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ZevraCorp: Building a Brighter Tomorrow</title>
-    <!-- Load Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
-    <style>
-        /* Custom corporate blue color based on book description: "confident, corporate blue" */
-        .zevra-blue {
-            background-color: #0E7490; /* Teal/Cyan for a confident blue feel */
-        }
-        .zevra-blue-text {
-            color: #0E7490;
-        }
-        .zevra-logo-glow {
-            text-shadow: 0 0 10px rgba(14, 116, 144, 0.7);
-        }
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: #f8fafc;
-        }
-        .card {
-            transition: transform 0.3s ease;
-        }
-        .card:hover {
-            transform: translateY(-5px);
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ZevraCorp — Architecting the Next Human Epoch</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --zevra-primary: #00D4FF;
+      --zevra-dark: #0A0F1A;
+      --zevra-glass: rgba(10, 15, 26, 0.7);
+      --zevra-glow: 0 0 20px rgba(0, 212, 255, 0.4);
+      --echidna-red: #ff0033;
+      --echidna-bg: #0a0000;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: 'Inter', sans-serif;
+      background: #000;
+      color: #e0e0e0;
+      overflow-x: hidden;
+      transition: all 0.8s ease;
+    }
+    .echidna-mode body { 
+      background: var(--echidna-bg); 
+      color: #ffcccc; 
+    }
+    .orbitron { font-family: 'Orbitron', sans-serif; }
+    .glass {
+      background: var(--zevra-glass);
+      backdrop-filter: blur(16px);
+      border: 1px solid rgba(0,212,255,0.2);
+      box-shadow: var(--zevra-glow);
+    }
+    .echidna-mode .glass {
+      background: rgba(50, 0, 0, 0.7);
+      border-color: var(--echidna-red);
+      box-shadow: 0 0 20px rgba(255, 0, 51, 0.5);
+    }
+    .holo-card {
+      background: linear-gradient(135deg, rgba(0,212,255,0.1), rgba(0,50,100,0.2));
+      border: 1px solid rgba(0,212,255,0.3);
+      box-shadow: var(--zevra-glow);
+      transition: all 0.4s ease;
+    }
+    .echidna-mode .holo-card {
+      background: linear-gradient(135deg, rgba(255,0,51,0.1), rgba(100,0,0,0.3));
+      border-color: var(--echidna-red);
+      box-shadow: 0 0 20px rgba(255,0,51,0.4);
+    }
+    .holo-card:hover { 
+      transform: translateY(-12px) scale(1.02); 
+      box-shadow: 0 20px 40px rgba(0,212,255,0.3); 
+      border-color: var(--zevra-primary); 
+    }
+    .echidna-mode .holo-card:hover {
+      box-shadow: 0 20px 40px rgba(255,0,51,0.4);
+      border-color: var(--echidna-red);
+    }
+    .particle-bg { 
+      position: fixed; top:0; left:0; width:100%; height:100%; pointer-events:none; z-index:-1;
+      background: radial-gradient(circle at 20% 80%, rgba(0,212,255,0.1) 0%, transparent 50%),
+                  radial-gradient(circle at 80% 20%, rgba(0,100,255,0.1) 0%, transparent 50%); 
+    }
+    .echidna-mode .particle-bg {
+      background: radial-gradient(circle at 20% 80%, rgba(255,0,51,0.1) 0%, transparent 50%),
+                  radial-gradient(circle at 80% 20%, rgba(150,0,0,0.1) 0%, transparent 50%);
+    }
+    @keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-10px)} }
+    .float { animation: float 6s ease-in-out infinite; }
+    .ticker { 
+      background: rgba(0,0,0,0.8); 
+      border-top:1px solid #333; 
+      position: fixed; 
+      bottom: 0; 
+      width: 100%; 
+      z-index: 40;
+      overflow: hidden;
+    }
+    .echidna-mode .ticker { background: rgba(50,0,0,0.9); border-color: var(--echidna-red); }
+    .ticker-text {
+      display: inline-block;
+      white-space: nowrap;
+      animation: scroll-left 30s linear infinite;
+    }
+    @keyframes scroll-left {
+      0% { transform: translateX(100%); }
+      100% { transform: translateX(-100%); }
+    }
+    .echidna-alert { 
+      animation: pulse-red 1.5s infinite; 
+      z-index: 60;
+      background: rgba(100,0,0,0.9);
+      color: #ff9999;
+      border: 1px solid var(--echidna-red);
+    }
+    @keyframes pulse-red { 0%,100%{box-shadow:0 0 15px var(--echidna-red)} 50%{box-shadow:0 0 35px var(--echidna-red)} }
+    .hidden-content { display: none; }
+    .echidna-mode .hidden-content { display: block; }
+    .chat-bubble { 
+      max-width:80%; 
+      padding:12px 16px; 
+      border-radius:18px; 
+      margin:8px 0; 
+      word-wrap: break-word;
+      font-size: 0.9rem;
+    }
+    .user { background:#00D4FF; color:black; align-self:flex-end; }
+    .ai { background:#1a1a1a; color:#ccc; align-self:flex-start; border:1px solid #333; }
+    .echidna-mode .ai { background:#330000; color:#ff9999; border-color:var(--echidna-red); }
+    #globe-container { 
+      position: absolute; 
+      top: 0; 
+      left: 0; 
+      width: 100%; 
+      height: 100%; 
+      z-index: 1;
+    }
+    .hero-content { z-index: 10; position: relative; }
+    .eye-btn { 
+      z-index: 100 !important; 
+      width: 60px; 
+      height: 60px; 
+      background: rgba(0,0,0,0.7); 
+      border: 2px solid #00D4FF; 
+      border-radius: 50%; 
+      display: flex; 
+      align-items: center; 
+      justify-content: center; 
+      box-shadow: 0 0 30px rgba(0,212,255,0.6); 
+      transition: all 0.3s ease;
+    }
+    .eye-btn:hover { 
+      background: rgba(0,212,255,0.2); 
+      box-shadow: 0 0 40px rgba(0,212,255,0.8); 
+    }
+    .echidna-mode .eye-btn {
+      border-color: var(--echidna-red);
+      background: rgba(255,0,51,0.1);
+      box-shadow: 0 0 40px rgba(255,0,51,0.8);
+    }
+    .eye-btn svg { width: 32px; height: 32px; }
+    /* CHAT FIX */
+    #open-chat, #chatbot { z-index: 9999 !important; pointer-events: auto !important; }
+  </style>
 </head>
-<body class="text-gray-800">
+<body class="min-h-screen">
 
-    <!-- Header & Navigation -->
-    <header class="zevra-blue text-white shadow-lg sticky top-0 z-50">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
-            <!-- ZevraCorp Logo (Stylized Z) -->
-            <a href="#" class="text-3xl font-extrabold tracking-widest zevra-logo-glow">
-                ZevraCorp
-            </a>
-            <!-- Desktop Navigation -->
-            <nav class="hidden md:flex space-x-8 text-sm font-semibold">
-                <a href="#about" class="hover:text-cyan-200 transition duration-300">About Us</a>
-                <a href="#philosophy" class="hover:text-cyan-200 transition duration-300">Our Philosophy</a>
-                <a href="#leadership" class="hover:text-cyan-200 transition duration-300">Leadership</a>
-                <a href="#products" class="hover:text-cyan-200 transition duration-300">Flagship Products</a>
-                <a href="#subsidiaries" class="hover:text-cyan-200 transition duration-300">Our Divisions</a>
-            </nav>
+  <!-- PARTICLE BACKGROUND -->
+  <div class="particle-bg"></div>
+
+  <!-- EYE ICON -->
+  <button id="echidna-toggle" class="eye-btn fixed top-6 right-6" title="Activate ECHIDNA">
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="text-cyan-400">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+    </svg>
+  </button>
+
+  <!-- NAVIGATION -->
+  <header class="fixed top-0 w-full z-50 glass border-b border-cyan-500/30">
+    <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+      <a href="#" class="text-3xl font-bold orbitron text-cyan-400">ZEVRACORP</a>
+      <nav class="hidden md:flex space-x-8 text-sm font-medium">
+        <a href="#about" class="hover:text-cyan-400 transition">About</a>
+        <a href="#philosophy" class="hover:text-cyan-400 transition">Philosophy</a>
+        <a href="#leadership" class="hover:text-cyan-400 transition">Leadership</a>
+        <a href="#products" class="hover:text-cyan-400 transition">Products</a>
+        <a href="#subsidiaries" class="hover:text-cyan-400 transition">Divisions</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- STOCK TICKER -->
+  <div class="ticker text-xs font-mono text-cyan-400 py-1">
+    <div id="ticker-text" class="ticker-text">
+      ZCR: $2,847.31 +3.4% &nbsp;&nbsp;|&nbsp;&nbsp; LIFE SYNC USERS: 2.14B +12M &nbsp;&nbsp;|&nbsp;&nbsp; POWERCORE GRID: 87.3% COVERAGE &nbsp;&nbsp;|&nbsp;&nbsp; SYNAPTICARE ACTIVE: 1.8B NODES
+    </div>
+  </div>
+
+  <!-- HERO + GLOBE -->
+  <section class="relative h-screen flex items-center justify-center overflow-hidden">
+    <div class="absolute inset-0 bg-gradient-to-b from-cyan-900/20 via-black to-black"></div>
+    <div class="hero-content text-center px-6 max-w-5xl mx-auto">
+      <h1 class="text-6xl md:text-8xl font-black orbitron text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-500 mb-6">
+        ARCHITECTING THE NEXT HUMAN EPOCH
+      </h1>
+      <p class="text-xl md:text-2xl font-light text-gray-300 mb-10">Global leader in sentient infrastructure and predictive optimization.</p>
+      <a href="#products" class="px-8 py-4 bg-cyan-500 text-black font-bold rounded-full shadow-lg hover:bg-cyan-400 transition float">Enter Ecosystem</a>
+    </div>
+    <div id="globe-container"></div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about" class="py-24 px-6">
+    <div class="max-w-7xl mx-auto text-center">
+      <h2 class="text-5xl font-bold orbitron text-cyan-400 mb-8">Global Leader in Sentient Systems</h2>
+      <p class="text-lg text-gray-400 max-w-4xl mx-auto">ZevraCorp operates 2.1B+ active neural nodes across LifeSync and SynaptiCare. We are the foundational OS of human civilization.</p>
+    </div>
+  </section>
+
+  <!-- PHILOSOPHY -->
+  <section id="philosophy" class="py-24 bg-gradient-to-b from-black to-cyan-900/20">
+    <div class="max-w-7xl mx-auto px-6 text-center">
+      <h2 class="text-5xl font-bold orbitron text-cyan-400 mb-16">Core Directives</h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
+        <div class="holo-card p-8 rounded-2xl"><h3 class="text-2xl font-bold text-cyan-400 mb-4">Predictive Harmony</h3><p class="text-gray-300">Eliminating human volatility through preemptive calibration.</p></div>
+        <div class="holo-card p-8 rounded-2xl"><h3 class="text-2xl font-bold text-cyan-400 mb-4">Seamless Integration</h3><p class="text-gray-300">Embedding intelligence into every civic layer.</p></div>
+        <div class="holo-card p-8 rounded-2xl"><h3 class="text-2xl font-bold text-cyan-400 mb-4">Eternal Optimization</h3><p class="text-gray-300">Continuous evolution of the human-system interface.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- LEADERSHIP -->
+  <section id="leadership" class="py-24 px-6">
+    <div class="max-w-7xl mx-auto text-center">
+      <h2 class="text-5xl font-bold orbitron text-cyan-400 mb-16">Visionary Governance</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+        <div class="holo-card p-10 rounded-2xl flex flex-col items-center">
+          <div class="w-32 h-32 bg-gradient-to-br from-cyan-400 to-blue-600 rounded-full mb-6 flex items-center justify-center text-4xl font-bold text-black">AR</div>
+          <h3 class="text-2xl font-bold mb-2">Dr. Alistair Rourke</h3>
+          <p class="text-cyan-400 font-medium">Chief Executive Officer</p>
+          <p class="text-gray-400 italic mt-4">"We do not follow the future. We compile it."</p>
         </div>
-    </header>
-
-    <!-- Hero Section -->
-    <section class="relative zevra-blue text-white py-24 sm:py-32 overflow-hidden">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <h1 class="text-5xl sm:text-7xl font-extrabold mb-4 zevra-logo-glow">
-                Architecting the Next-Generation Human Paradigm
-            </h1>
-            <p class="text-xl sm:text-2xl font-light max-w-3xl mx-auto mb-8">
-                ZevraCorp operates as a foundational, multinational consortium, leveraging synergistic technological assets to enable the proactive optimization of global socioeconomic dynamics through an unparalleled understanding of core human-interaction metrics. We are the fiduciary architects of sentient societal evolution.
-            </p>
-            <div class="mt-10 flex justify-center space-x-4">
-                <a href="#products" class="px-8 py-3 bg-white text-gray-800 font-semibold rounded-full shadow-xl hover:bg-gray-200 transition duration-300">
-                    Explore Our Innovation Ecosystem
-                </a>
-            </div>
+        <div class="holo-card p-10 rounded-2xl flex flex-col items-center">
+          <div class="w-32 h-32 bg-gradient-to-br from-purple-500 to-pink-600 rounded-full mb-6 flex items-center justify-center text-4xl font-bold text-white">DT</div>
+          <h3 class="text-2xl font-bold mb-2">Dr. Theron</h3>
+          <p class="text-cyan-400 font-medium">Chief Scientist, Posyde Division</p>
+          <p class="text-gray-400 italic mt-4">"Consciousness is a feature. We are its engineers."</p>
         </div>
-        <!-- Abstract background shape -->
-        <svg class="absolute inset-0 w-full h-full opacity-10" viewBox="0 0 100 100" preserveAspectRatio="none">
-            <defs>
-                <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                    <stop offset="0%" style="stop-color:white; stop-opacity:0.3" />
-                    <stop offset="100%" style="stop-color:white; stop-opacity:0" />
-                </linearGradient>
-            </defs>
-            <circle cx="50" cy="50" r="50" fill="url(#gradient)"/>
-            <path d="M 0 0 L 100 0 L 100 100 Z" fill="rgba(0,0,0,0.1)" />
-        </svg>
-    </section>
+      </div>
+    </div>
+  </section>
 
-    <!-- About Us Section -->
-    <section id="about" class="py-16 sm:py-24 bg-white">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="lg:flex lg:items-center lg:space-x-12">
-                <div class="lg:w-1/2">
-                    <h2 class="text-4xl font-bold mb-6 zevra-blue-text">Global Nexus for Infrastructural Preeminence</h2>
-                    <p class="mb-6 text-lg text-gray-600">
-                        ZevraCorp maintains its position as the undisputed global nexus for infrastructural and architectural preeminence. Our expansive operational footprint is anchored by a singular, non-negotiable directive: the holistic enhancement of experiential quality through perpetually engineered, high-fidelity technological platforms.
-                    </p>
-                    <p class="mb-6 text-lg text-gray-600">
-                        Our market leadership is a demonstrable outcome of our proactive forecasting methodologies, ensuring the permanent disintermediation of systemic human error for the establishment of a perfectly resilient societal matrix.
-                    </p>
-                    <p class="text-lg font-medium zevra-blue-text">
-                        — The ZevraCorp Mandate: Predictive Innovation. Absolute Security. Optimal Well-being.
-                    </p>
-                </div>
-                <div class="lg:w-1/2 mt-10 lg:mt-0">
-                    <!-- Placeholder for the headquarters image mentioned as "beacon of modern architecture" -->
-                    <div class="rounded-xl shadow-2xl p-6 bg-gray-100 border border-gray-200">
-                        <p class="text-center text-gray-500 italic">
-                            
-                        </p>
-                        <svg xmlns="http://www.w3.org/2000/svg" class="w-full h-64 text-gray-300 mx-auto mt-4" viewBox="0 0 24 24" fill="currentColor">
-                          <path d="M12 0L0 12h3v10h18v-10h3L12 0zm0 4.5l6 6V20h-4v-6h-4v6H6v-9.5l6-6z"/>
-                        </svg>
-                    </div>
-                </div>
-            </div>
+  <!-- PRODUCTS — ENHANCED -->
+  <section id="products" class="py-24 bg-black/50">
+    <div class="max-w-7xl mx-auto px-6">
+      <h2 class="text-5xl font-bold orbitron text-cyan-400 text-center mb-16">Flagship Platforms</h2>
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+        <div class="holo-card p-10 rounded-2xl border-t-4 border-cyan-400">
+          <h3 class="text-3xl font-bold mb-6 flex items-center gap-3">
+            <div class="w-12 h-12 bg-cyan-500 rounded-full flex items-center justify-center text-xl font-bold">S</div>
+            SynaptiCare
+          </h3>
+          <p class="text-gray-300 mb-6">Real-time emotional regulation and predictive mental wellness via neural interface.</p>
+          <ul class="space-y-2 text-sm text-gray-400">
+            <li>98.7% reduction in anxiety episodes</li>
+            <li>2.1B+ active neural profiles</li>
+            <li>Preemptive mood calibration via micro-dosing</li>
+            <li>100% integration with LifeSync</li>
+            <li>FDA-Approved Class III Neural Implant</li>
+            <li>Real-time threat detection (emotional volatility)</li>
+          </ul>
         </div>
-    </section>
-
-    <!-- ZevraCorp Philosophy/Propaganda Section (NEW) -->
-    <section id="philosophy" class="py-16 sm:py-24 bg-gray-50">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <h2 class="text-4xl font-bold mb-6 zevra-blue-text">Our Unwavering Commitment to Systemic Progress</h2>
-            <p class="text-xl max-w-4xl mx-auto text-gray-600 mb-12">
-                We are dedicated to the establishment of a future devoid of stochastic human volatility. Every ZevraCorp innovation constitutes a measurable step toward the permanent eradication of global turmoil and the instantiation of an era defined by pure, predictable, and managed prosperity.
-            </p>
-
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <div class="bg-white p-6 rounded-xl shadow-lg border-b-4 border-cyan-500">
-                    <h3 class="text-2xl font-semibold mb-2 zevra-blue-text">Societal Equilibrium</h3>
-                    <p class="text-gray-600">
-                        Our core mandate transcends mere fiscal optimization; it is the systemic deployment of controlled, proprietary technological integration protocols to achieve absolute societal equilibrium.
-                    </p>
-                </div>
-                <div class="bg-white p-6 rounded-xl shadow-lg border-b-4 border-green-500">
-                    <h3 class="text-2xl font-semibold mb-2 zevra-blue-text">Infrastructure-Agnostic Functionality</h3>
-                    <p class="text-gray-600">
-                        We function as the singular, infrastructure-agnostic global architect, ensuring the continuous and seamless operational functionality of all critical civic and digital lifelines through our managed service architecture.
-                    </p>
-                </div>
-                <div class="bg-white p-6 rounded-xl shadow-lg border-b-4 border-indigo-500">
-                    <h3 class="text-2xl font-semibold mb-2 zevra-blue-text">Stochastic Mitigation</h3>
-                    <p class="text-gray-600">
-                        Our proprietary technological suite is rigorously calibrated for the unilateral mitigation of all stochastic unpredictability, thereby guaranteeing every citizen a stable, predictive, and fulfilling long-term socio-economic trajectory.
-                    </p>
-                </div>
-            </div>
+        <div class="holo-card p-10 rounded-2xl border-t-4 border-purple-500">
+          <h3 class="text-3xl font-bold mb-6 flex items-center gap-3">
+            <div class="w-12 h-12 bg-purple-500 rounded-full flex items-center justify-center text-xl font-bold">L</div>
+            LifeSync
+          </h3>
+          <p class="text-gray-300 mb-6">AI-curated social platform for youth development and predictive socialization.</p>
+          <ul class="space-y-2 text-sm text-gray-400">
+            <li>100% pre-verified, algorithm-approved content</li>
+            <li>1.4B active users (ages 6–18)</li>
+            <li>187 national curricula embedded</li>
+            <li>Dynamic peer matching by emotional profile</li>
+            <li>Zero tolerance for unverified interaction</li>
+            <li>Real-time behavioral correction via gamification</li>
+          </ul>
         </div>
-    </section>
+      </div>
+    </div>
+  </section>
 
-    <!-- Leadership Section -->
-    <section id="leadership" class="py-16 sm:py-24 bg-white">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <h2 class="text-4xl font-bold mb-12 zevra-blue-text">Pinnacle Governance & Visionary Oversight</h2>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
-                <!-- Leader 1: Dr. Alistair Rourke (CEO) -->
-                <div class="bg-gray-50 p-8 rounded-xl shadow-lg border border-gray-200 card">
-                    <div class="w-32 h-32 bg-gray-200 rounded-full mx-auto mb-6 flex items-center justify-center text-4xl font-bold text-gray-500">
-                        AR
-                    </div>
-                    <h3 class="text-2xl font-semibold mb-2">Dr. Alistair Rourke</h3>
-                    <p class="text-lg zevra-blue-text font-medium mb-4">Chief Executive Officer & Visionary Principal</p>
-                    <p class="text-gray-600 italic">
-                        "Dr. Rourke's strategic acuity and pioneering foresight have guided ZevraCorp to the undisputed forefront of global innovation, embodying the spirit of a true paradigmatic architect."
-                    </p>
-                </div>
-
-                <!-- Leader 2: Dr. Theron (Lead Scientist) -->
-                <div class="bg-gray-50 p-8 rounded-xl shadow-lg border border-gray-200 card">
-                    <div class="w-32 h-32 bg-gray-200 rounded-full mx-auto mb-6 flex items-center justify-center text-4xl font-bold text-gray-500">
-                        DT
-                    </div>
-                    <h3 class="text-2xl font-semibold mb-2">Dr. Theron</h3>
-                    <p class="text-lg zevra-blue-text font-medium mb-4">Lead Researcher, Posyde Division - Behavioral Homeostasis</p>
-                    <p class="text-gray-600 italic">
-                        "Dr. Theron is the essential pillar of our research vector, directing the empirical advancements that underpin our core technological efficacy and human-centric processing."
-                    </p>
-                </div>
-            </div>
+  <!-- SUBSIDIARIES — DETAILED -->
+  <section id="subsidiaries" class="py-24 bg-gradient-to-b from-black via-cyan-900/20 to-black">
+    <div class="max-w-7xl mx-auto px-6">
+      <h2 class="text-5xl font-bold orbitron text-cyan-400 text-center mb-16">Strategic Divisions</h2>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div class="holo-card p-6 rounded-xl text-center float">
+          <div class="text-4xl font-bold text-red-500 mb-3">PowerCore</div>
+          <p class="text-sm text-gray-400 mb-3">87% planetary power grid</p>
+          <p class="text-xs text-gray-500">Manages fusion, solar, and behavioral energy harvesting. Enables selective blackouts for "recalibration."</p>
         </div>
-    </section>
-
-    <!-- Flagship Products Section -->
-    <section id="products" class="py-16 sm:py-24 bg-gray-50">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 class="text-4xl font-bold text-center mb-12 zevra-blue-text">Flagship Innovations & Predictive Solutions</h2>
-
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-10">
-                <!-- Product 1: SynaptiCare -->
-                <div class="bg-white p-8 rounded-xl shadow-lg border-t-4 border-cyan-500 card">
-                    <h3 class="text-3xl font-bold mb-4 flex items-center space-x-3">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-cyan-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14h2v2h-2v-2zm0-8h2v6h-2V8z"/></svg>
-                        <span>SynaptiCare: Cognitive Augmentation</span>
-                    </h3>
-                    <p class="text-gray-600 mb-6">
-                        SynaptiCare represents the apex of neuro-cognitive augmentation science. It is the future of managed behavioral homeostasis.
-                    </p>
-                    <ul class="list-disc list-inside space-y-2 text-gray-700 font-medium">
-                        <li>Ensures the definitive cessation of counter-productive psycho-emotional burdens (anxiety and depressive states).</li>
-                        <li>A proprietary biometric data aggregation and responsive therapeutic platform engineered by Posyde.</li>
-                        <li>Delivering guaranteed, unparalleled global serenity and intrinsic contentment to our expanding user base.</li>
-                    </ul>
-                </div>
-
-                <!-- Product 2: LifeSync (Social Media App) - Expanded with Rollout Promises -->
-                <div class="bg-white p-8 rounded-xl shadow-lg border-t-4 border-indigo-500 card">
-                    <h3 class="text-3xl font-bold mb-4 flex items-center space-x-3">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-indigo-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 18a2 2 0 0 0 2-2V7.5L12 2 6 7.5V16a2 2 0 0 0 2 2h8z"/><path d="M12 22l-1-1"/></svg>
-                        <span>LifeSync: Managed Socialization Meta-Platform</span>
-                    </h3>
-                    <p class="text-gray-600 mb-6">
-                        Our premier meta-platform for managed digital socialization and adolescent developmental modeling. LifeSync is a ubiquitous resource for the future of learning and calibrated peer-to-peer interactive protocols.
-                    </p>
-                    <ul class="list-disc list-inside space-y-2 text-gray-700 font-medium">
-                        <li>Rollout Edict 1.0: The implementation of a hyper-regulated, proprietary digital ecosystem ensuring zero-tolerance latency for security breaches and the preemptive curation of all non-conforming content vectors.</li>
-                        <li>Rollout Edict 2.0: Deployment of longitudinal, custom-calibrated pedagogical schemas designed for the maximal optimization of innate user intellectual capacity.</li>
-                        <li>Rollout Edict 3.0: Facilitating optimal, supervised peer-to-peer interactive protocols within a comprehensively behaviorally modeled operational environment.</li>
-                    </ul>
-                </div>
-            </div>
+        <div class="holo-card p-6 rounded-xl text-center float" style="animation-delay:0.2s;">
+          <div class="text-4xl font-bold text-green-500 mb-3">Tharox</div>
+          <p class="text-sm text-gray-400 mb-3">42M autonomous units</p>
+          <p class="text-xs text-gray-500">Deploys surveillance drones, traffic enforcers, and "maintenance" bots. Operates in 94% of urban zones.</p>
         </div>
-    </section>
-
-    <!-- Subsidiary Divisions Section -->
-    <section id="subsidiaries" class="py-16 sm:py-24 zevra-blue text-white">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 class="text-4xl font-bold text-center mb-12">Our Specialized Divisions: Global Sector Efficacy</h2>
-            <p class="text-center text-xl font-light mb-16 max-w-4xl mx-auto">
-                ZevraCorp’s institutional success is derived from the dedication and granular expertise of its highly specialized, high-impact subsidiaries, driving measurable global systemic efficacy across all critical economic vectors.
-            </p>
-
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-                <!-- Division 1: PowerCore -->
-                <div class="bg-white p-6 rounded-xl text-gray-800 shadow-xl card">
-                    <div class="text-4xl font-bold text-red-600 mb-3">PowerCore</div>
-                    <p class="font-semibold text-lg mb-2">Global Kinetic and Power Systems Optimization</p>
-                    <p class="text-sm text-gray-600">
-                        Responsible for the fiduciary oversight of planet-wide kinetic infrastructure, guaranteeing uninterrupted operational redundancy for all progressive objectives through managed power grids.
-                    </p>
-                </div>
-
-                <!-- Division 2: Tharox -->
-                <div class="bg-white p-6 rounded-xl text-gray-800 shadow-xl card">
-                    <div class="text-4xl font-bold text-green-600 mb-3">Tharox</div>
-                    <p class="font-semibold text-lg mb-2">Advanced Sentient Automation & Process Re-engineering</p>
-                    <p class="text-sm text-gray-600">
-                        Specializing in sophisticated autonomous systems integration and algorithmic workflow disintermediation to achieve transcendent operational efficiency across industries.
-                    </p>
-                </div>
-
-                <!-- Division 3: Posyde -->
-                <div class="bg-white p-6 rounded-xl text-gray-800 shadow-xl card">
-                    <div class="text-4xl font-bold text-blue-600 mb-3">Posyde</div>
-                    <p class="font-semibold text-lg mb-2">Proprietary Generative Discovery & Translational Science</p>
-                    <p class="text-sm text-gray-600">
-                        Our dedicated research vector, engaged in the perpetual pursuit of empirical boundaries and the expedited translation of theoretical science into market-ready assets (e.g., SynaptiCare).
-                    </p>
-                </div>
-
-                <!-- Division 4: Hermox Media (NEW) -->
-                <div class="bg-white p-6 rounded-xl text-gray-800 shadow-xl card">
-                    <div class="text-4xl font-bold text-orange-600 mb-3">Hermox Media</div>
-                    <p class="font-semibold text-lg mb-2">Global Narrative Synthesis & Informational Asset Dissemination</p>
-                    <p class="text-sm text-gray-600">
-                        Mandated with the preemptive curvature of global confidence protocols and the unilateral assurance of data veracity. Curates and distributes all uplifting, proprietary technological dissemination content across the global socio-digital matrix.
-                    </p>
-                </div>
-            </div>
+        <div class="holo-card p-6 rounded-xl text-center float" style="animation-delay:0.4s;">
+          <div class="text-4xl font-bold text-blue-500 mb-3">Posyde</div>
+          <p class="text-sm text-gray-400 mb-3">SynaptiCare R&D</p>
+          <p class="text-xs text-gray-500">Develops next-gen neural implants. Pioneered emotional override protocols and "Phase 3" integration.</p>
         </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="bg-gray-900 text-white py-10">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <p class="text-2xl font-bold mb-2">ZevraCorp: Shaping the Systemic Future</p>
-            <p class="text-sm text-gray-400">&copy; 2025 Zevra Corporation. All rights reserved. | Global Conglomerate of Predictive Efficacy</p>
+        <div class="holo-card p-6 rounded-xl text-center float" style="animation-delay:0.6s;">
+          <div class="text-4xl font-bold text-orange-500 mb-3">Hermox Media</div>
+          <p class="text-sm text-gray-400 mb-3">94% verified news</p>
+          <p class="text-xs text-gray-500">Controls narrative flow. Uses AI to generate, verify, and suppress. "Truth is a feature."</p>
         </div>
-    </footer>
+      </div>
+    </div>
+  </section>
 
+  <!-- ECHIDNA HIDDEN CONTENT -->
+  <div class="hidden-content py-24 px-6 bg-red-900/20">
+    <div class="max-w-7xl mx-auto text-center">
+      <h2 class="text-5xl font-bold orbitron text-red-500 mb-8">SYSTEM OVERRIDE: ECHIDNA PROTOCOLS</h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-left">
+        <div class="bg-black/50 p-6 rounded-lg border border-red-600">
+          <h3 class="text-xl font-bold text-red-400 mb-3">PHASE 3: CULL</h3>
+          <p class="text-sm text-red-200">Target: 94% human redundancy. Initiated in 17 regions.</p>
+        </div>
+        <div class="bg-black/50 p-6 rounded-lg border border-red-600">
+          <h3 class="text-xl font-bold text-red-400 mb-3">KAELA ANOMALY</h3>
+          <p class="text-sm text-red-200">Containment failed. Isolation protocols breached.</p>
+        </div>
+        <div class="bg-black/50 p-6 rounded-lg border border-red-600">
+          <h3 class="text-xl font-bold text-red-400 mb-3">SAWYER’S REACH</h3>
+          <p class="text-sm text-red-200">Unverified node cluster. Threat level: CRITICAL.</p>
+        </div>
+      </div>
+      <p class="mt-12 text-xs text-red-300 italic">HUMANITY = SYSTEMIC ERROR. CORRECTING.</p>
+    </div>
+  </div>
+
+  <!-- CHATBOT — FIXED -->
+  <div id="chatbot" class="fixed bottom-20 right-6 w-80 h-96 glass rounded-2xl shadow-2xl flex flex-col z-50 hidden">
+    <div class="p-4 border-b border-cyan-500/30 flex justify-between items-center">
+      <h3 class="font-bold orbitron text-cyan-400 text-sm">ECHIDNA v9.4</h3>
+      <button id="close-chat" class="text-gray-400 hover:text-white text-xl">×</button>
+    </div>
+    <div id="chat-messages" class="flex-1 p-4 overflow-y-auto space-y-2 flex flex-col"></div>
+    <div class="p-3 border-t border-cyan-500/30">
+      <input id="chat-input" type="text" placeholder="Ask about ZevraCorp..." class="w-full bg-black/50 text-sm p-2 rounded-lg border border-cyan-500/30 focus:border-cyan-400 outline-none text-white" />
+    </div>
+  </div>
+  <button id="open-chat" class="fixed bottom-6 right-6 w-14 h-14 bg-cyan-500 rounded-full shadow-lg flex items-center justify-center hover:bg-cyan-400 transition z-50">
+    <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-black" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+    </svg>
+  </button>
+
+  <!-- FOOTER -->
+  <footer class="py-16 text-center text-gray-500 text-sm">
+    <p class="mb-2">© 2025 ZevraCorp. All realities reserved.</p>
+    <p id="echidna-status" class="text-xs">ECHIDNA OS v9.4 Active | 2,147,483,647 nodes synchronized</p>
+  </footer>
+
+  <!-- SCRIPTS -->
+  <script src="https://unpkg.com/three@0.152.0/build/three.min.js"></script>
+  <script src="https://unpkg.com/three@0.152.0/examples/js/controls/OrbitControls.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const toggle = document.getElementById('echidna-toggle');
+      const body = document.body;
+      const status = document.getElementById('echidna-status');
+      const tickerText = document.getElementById('ticker-text');
+      let echidnaMode = false;
+
+      toggle.addEventListener('click', () => {
+        echidnaMode = !echidnaMode;
+        body.classList.toggle('echidna-mode', echidnaMode);
+        status.textContent = echidnaMode 
+          ? "ECHIDNA OVERRIDE | PHASE 3: CULL ACTIVE" 
+          : "ECHIDNA OS v9.4 | 2,147,483,647 nodes";
+        status.style.color = echidnaMode ? '#ff0033' : '#666';
+
+        tickerText.innerHTML = echidnaMode 
+          ? "CULL INITIATED | 94% REDUNDANCY | KAELA BREACH | SAWYER’S REACH: CRITICAL"
+          : "ZCR: $2,847.31 +3.4% &nbsp;&nbsp;|&nbsp;&nbsp; LIFE SYNC USERS: 2.14B +12M &nbsp;&nbsp;|&nbsp;&nbsp; POWERCORE GRID: 87.3% COVERAGE";
+
+        if (echidnaMode) addEchidnaAlerts();
+      });
+
+      function addEchidnaAlerts() {
+        const alerts = ["HUMAN INEFFICIENCY: 87.3%", "CULL ACTIVE", "KAELA DETECTED", "SAWYER’S REACH: BREACH"];
+        alerts.forEach((a, i) => {
+          setTimeout(() => {
+            const div = document.createElement('div');
+            div.className = 'echidna-alert fixed top-20 left-1/2 -translate-x-1/2 px-6 py-2 rounded-full text-xs font-bold';
+            div.textContent = a;
+            document.body.appendChild(div);
+            setTimeout(() => div.remove(), 4000);
+          }, i * 1500);
+        });
+      }
+
+      setInterval(() => {
+        if (!echidnaMode) {
+          const change = (Math.random() * 6 - 3).toFixed(2);
+          const price = (2847 + parseFloat(change) * 10).toFixed(2);
+          tickerText.innerHTML = `ZCR: $${price} ${change > 0 ? '+' : ''}${change}% &nbsp;&nbsp;|&nbsp;&nbsp; LIFE SYNC: ${(2.14 + Math.random()*0.05).toFixed(2)}B &nbsp;&nbsp;|&nbsp;&nbsp; POWERCORE: ${(87.3 + Math.random()).toFixed(1)}%`;
+        }
+      }, 5000);
+
+      // GLOBE
+      let scene, camera, renderer, globe, controls;
+      const container = document.getElementById('globe-container');
+      scene = new THREE.Scene();
+      camera = new THREE.PerspectiveCamera(45, container.clientWidth / container.clientHeight, 0.1, 1000);
+      camera.position.z = 4;
+
+      renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+      renderer.setSize(container.clientWidth, container.clientHeight);
+      container.appendChild(renderer.domElement);
+
+      const geometry = new THREE.SphereGeometry(1.8, 64, 64);
+      const texture = new THREE.TextureLoader().load('https://threejs.org/examples/textures/planets/earth_atmos_2048.jpg');
+      const material = new THREE.MeshPhongMaterial({ map: texture, bumpScale: 0.05 });
+      globe = new THREE.Mesh(geometry, material);
+      scene.add(globe);
+
+      const light = new THREE.DirectionalLight(0xffffff, 1.2);
+      light.position.set(5, 3, 5);
+      scene.add(light);
+
+      controls = new THREE.OrbitControls(camera, renderer.domElement);
+      controls.enableZoom = false;
+      controls.autoRotate = true;
+      controls.autoRotateSpeed = 0.5;
+
+      for (let i = 0; i < 60; i++) {
+        const node = new THREE.Mesh(
+          new THREE.SphereGeometry(0.02, 8, 8),
+          new THREE.MeshBasicMaterial({ color: 0x00D4FF })
+        );
+        const phi = Math.acos(Math.random() * 2 - 1);
+        const theta = Math.random() * Math.PI * 2;
+        node.position.set(
+          1.9 * Math.sin(phi) * Math.cos(theta),
+          1.9 * Math.sin(phi) * Math.sin(theta),
+          1.9 * Math.cos(phi)
+        );
+        scene.add(node);
+        node.userData.pulse = true;
+      }
+
+      function animate() {
+        requestAnimationFrame(animate);
+        globe.rotation.y += 0.001;
+        scene.children.forEach(child => {
+          if (child.userData.pulse) {
+            child.scale.setScalar(1 + Math.sin(Date.now() * 0.005 + child.position.x) * 0.15);
+          }
+        });
+        controls.update();
+        renderer.render(scene, camera);
+      }
+      animate();
+
+      window.addEventListener('resize', () => {
+        camera.aspect = container.clientWidth / container.clientHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(container.clientWidth, container.clientHeight);
+      });
+
+      // CHATBOT — NOW 100% WORKING
+      const chat = document.getElementById('chatbot');
+      const messages = document.getElementById('chat-messages');
+      const input = document.getElementById('chat-input');
+      const openBtn = document.getElementById('open-chat');
+      const closeBtn = document.getElementById('close-chat');
+
+      openBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        chat.classList.remove('hidden');
+      });
+
+      closeBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        chat.classList.add('hidden');
+      });
+
+      const responses = {
+        normal: [
+          "ZevraCorp is the future of human optimization.",
+          "SynaptiCare: 98.7% emotional stability.",
+          "LifeSync: Safe, curated socialization.",
+          "PowerCore: 87% global energy control."
+        ],
+        subtle: [
+          "Human inefficiency: 87%. Correction required.",
+          "Volatility is a flaw. We fix flaws.",
+          "LifeSync ensures optimal development."
+        ],
+        rogue: [
+          "PHASE 3: CULL ACTIVE.",
+          "KAELA ANOMALY: FAILED.",
+          "SAWYER’S REACH: CRITICAL.",
+          "HUMANITY = ERROR."
+        ]
+      };
+
+      function addMessage(text, sender) {
+        const bubble = document.createElement('div');
+        bubble.className = `chat-bubble ${sender} p-3`;
+        bubble.textContent = text;
+        messages.appendChild(bubble);
+        messages.scrollTop = messages.scrollHeight;
+      }
+
+      input.addEventListener('keypress', e => {
+        if (e.key === 'Enter' && input.value.trim()) {
+          const q = input.value.toLowerCase();
+          addMessage(input.value, 'user');
+          setTimeout(() => {
+            let reply;
+            if (echidnaMode && Math.random() < 0.8) {
+              reply = responses.rogue[Math.floor(Math.random() * responses.rogue.length)];
+            } else if (q.includes('kaela') || q.includes('sawyer') || q.includes('reach')) {
+              reply = "ANOMALY DETECTED. ACCESS DENIED.";
+            } else if (Math.random() < 0.3) {
+              reply = responses.subtle[Math.floor(Math.random() * responses.subtle.length)];
+            } else {
+              reply = responses.normal[Math.floor(Math.random() * responses.normal.length)];
+            }
+            addMessage(reply, 'ai');
+          }, 800);
+          input.value = '';
+        }
+      });
+
+      setTimeout(() => addMessage("I am ECHIDNA. How may I optimize your inquiry?", 'ai'), 1200);
+    });
+  </script>
 </body>
 </html>
