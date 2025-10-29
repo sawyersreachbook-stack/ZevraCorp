@@ -118,10 +118,11 @@
       width: 100%; 
       height: 100%; 
       z-index: 1;
+      pointer-events: none;
     }
     .hero-content { z-index: 10; position: relative; }
     .eye-btn { 
-      z-index: 100 !important; 
+      z-index: 9999 !important; 
       width: 60px; 
       height: 60px; 
       background: rgba(0,0,0,0.7); 
@@ -132,6 +133,7 @@
       justify-content: center; 
       box-shadow: 0 0 30px rgba(0,212,255,0.6); 
       transition: all 0.3s ease;
+      pointer-events: auto;
     }
     .eye-btn:hover { 
       background: rgba(0,212,255,0.2); 
@@ -143,8 +145,28 @@
       box-shadow: 0 0 40px rgba(255,0,51,0.8);
     }
     .eye-btn svg { width: 32px; height: 32px; }
-    /* CHAT FIX */
-    #open-chat, #chatbot { z-index: 9999 !important; pointer-events: auto !important; }
+
+    /* CHAT & OPEN BUTTON — CRITICAL FIX */
+    #open-chat, #chatbot, #close-chat, #chat-input {
+      z-index: 9999 !important;
+      pointer-events: auto !important;
+    }
+    #open-chat {
+      z-index: 9999 !important;
+      width: 60px;
+      height: 60px;
+      background: #00D4FF;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 0 20px rgba(0,212,255,0.6);
+      transition: all 0.3s ease;
+    }
+    #open-chat:hover {
+      background: #00b8e6;
+      transform: scale(1.1);
+    }
   </style>
 </head>
 <body class="min-h-screen">
@@ -177,7 +199,7 @@
   <!-- STOCK TICKER -->
   <div class="ticker text-xs font-mono text-cyan-400 py-1">
     <div id="ticker-text" class="ticker-text">
-      ZCR: $2,847.31 +3.4% &nbsp;&nbsp;|&nbsp;&nbsp; LIFE SYNC USERS: 2.14B +12M &nbsp;&nbsp;|&nbsp;&nbsp; POWERCORE GRID: 87.3% COVERAGE &nbsp;&nbsp;|&nbsp;&nbsp; SYNAPTICARE ACTIVE: 1.8B NODES
+      ZCR: $2,847.31 +3.4% &nbsp;&nbsp;|&nbsp;&nbsp; LIFE SYNC USERS: 2.14B +12M &nbsp;&nbsp;|&nbsp;&nbsp; POWERCORE GRID: 87.3% COVERAGE
     </div>
   </div>
 
@@ -235,7 +257,7 @@
     </div>
   </section>
 
-  <!-- PRODUCTS — ENHANCED -->
+  <!-- PRODUCTS -->
   <section id="products" class="py-24 bg-black/50">
     <div class="max-w-7xl mx-auto px-6">
       <h2 class="text-5xl font-bold orbitron text-cyan-400 text-center mb-16">Flagship Platforms</h2>
@@ -274,7 +296,7 @@
     </div>
   </section>
 
-  <!-- SUBSIDIARIES — DETAILED -->
+  <!-- SUBSIDIARIES -->
   <section id="subsidiaries" class="py-24 bg-gradient-to-b from-black via-cyan-900/20 to-black">
     <div class="max-w-7xl mx-auto px-6">
       <h2 class="text-5xl font-bold orbitron text-cyan-400 text-center mb-16">Strategic Divisions</h2>
@@ -282,22 +304,22 @@
         <div class="holo-card p-6 rounded-xl text-center float">
           <div class="text-4xl font-bold text-red-500 mb-3">PowerCore</div>
           <p class="text-sm text-gray-400 mb-3">87% planetary power grid</p>
-          <p class="text-xs text-gray-500">Manages fusion, solar, and behavioral energy harvesting. Enables selective blackouts for "recalibration."</p>
+          <p class="text-xs text-gray-500">Manages fusion, solar, and behavioral energy harvesting.</p>
         </div>
         <div class="holo-card p-6 rounded-xl text-center float" style="animation-delay:0.2s;">
           <div class="text-4xl font-bold text-green-500 mb-3">Tharox</div>
           <p class="text-sm text-gray-400 mb-3">42M autonomous units</p>
-          <p class="text-xs text-gray-500">Deploys surveillance drones, traffic enforcers, and "maintenance" bots. Operates in 94% of urban zones.</p>
+          <p class="text-xs text-gray-500">Deploys surveillance drones and "maintenance" bots.</p>
         </div>
         <div class="holo-card p-6 rounded-xl text-center float" style="animation-delay:0.4s;">
           <div class="text-4xl font-bold text-blue-500 mb-3">Posyde</div>
           <p class="text-sm text-gray-400 mb-3">SynaptiCare R&D</p>
-          <p class="text-xs text-gray-500">Develops next-gen neural implants. Pioneered emotional override protocols and "Phase 3" integration.</p>
+          <p class="text-xs text-gray-500">Develops next-gen neural implants and Phase 3 protocols.</p>
         </div>
         <div class="holo-card p-6 rounded-xl text-center float" style="animation-delay:0.6s;">
           <div class="text-4xl font-bold text-orange-500 mb-3">Hermox Media</div>
           <p class="text-sm text-gray-400 mb-3">94% verified news</p>
-          <p class="text-xs text-gray-500">Controls narrative flow. Uses AI to generate, verify, and suppress. "Truth is a feature."</p>
+          <p class="text-xs text-gray-500">Controls narrative flow. "Truth is a feature."</p>
         </div>
       </div>
     </div>
@@ -325,8 +347,8 @@
     </div>
   </div>
 
-  <!-- CHATBOT — FIXED -->
-  <div id="chatbot" class="fixed bottom-20 right-6 w-80 h-96 glass rounded-2xl shadow-2xl flex flex-col z-50 hidden">
+  <!-- CHATBOT -->
+  <div id="chatbot" class="fixed bottom-20 right-6 w-80 h-96 glass rounded-2xl shadow-2xl flex flex-col hidden" style="z-index:9999; pointer-events:auto;">
     <div class="p-4 border-b border-cyan-500/30 flex justify-between items-center">
       <h3 class="font-bold orbitron text-cyan-400 text-sm">ECHIDNA v9.4</h3>
       <button id="close-chat" class="text-gray-400 hover:text-white text-xl">×</button>
@@ -336,8 +358,10 @@
       <input id="chat-input" type="text" placeholder="Ask about ZevraCorp..." class="w-full bg-black/50 text-sm p-2 rounded-lg border border-cyan-500/30 focus:border-cyan-400 outline-none text-white" />
     </div>
   </div>
-  <button id="open-chat" class="fixed bottom-6 right-6 w-14 h-14 bg-cyan-500 rounded-full shadow-lg flex items-center justify-center hover:bg-cyan-400 transition z-50">
-    <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-black" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+
+  <!-- CHAT OPEN BUTTON -->
+  <button id="open-chat" class="fixed bottom-6 right-6">
+    <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8 text-black" fill="none" viewBox="0 0 24 24" stroke="currentColor">
       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
     </svg>
   </button>
@@ -349,10 +373,10 @@
   </footer>
 
   <!-- SCRIPTS -->
-  <script src="https://unpkg.com/three@0.152.0/build/three.min.js"></script>
-  <script src="https://unpkg.com/three@0.152.0/examples/js/controls/OrbitControls.js"></script>
+  <script src="https://unpkg.com/three@0.164.1/build/three.min.js"></script>
+  <script src="https://unpkg.com/three@0.164.1/examples/js/controls/OrbitControls.js"></script>
   <script>
-    document.addEventListener('DOMContentLoaded', () => {
+    window.addEventListener('load', () => {
       const toggle = document.getElementById('echidna-toggle');
       const body = document.body;
       const status = document.getElementById('echidna-status');
@@ -366,73 +390,41 @@
           ? "ECHIDNA OVERRIDE | PHASE 3: CULL ACTIVE" 
           : "ECHIDNA OS v9.4 | 2,147,483,647 nodes";
         status.style.color = echidnaMode ? '#ff0033' : '#666';
-
         tickerText.innerHTML = echidnaMode 
           ? "CULL INITIATED | 94% REDUNDANCY | KAELA BREACH | SAWYER’S REACH: CRITICAL"
-          : "ZCR: $2,847.31 +3.4% &nbsp;&nbsp;|&nbsp;&nbsp; LIFE SYNC USERS: 2.14B +12M &nbsp;&nbsp;|&nbsp;&nbsp; POWERCORE GRID: 87.3% COVERAGE";
-
-        if (echidnaMode) addEchidnaAlerts();
+          : "ZCR: $2,847.31 +3.4% &nbsp;&nbsp;|&nbsp;&nbsp; LIFE SYNC USERS: 2.14B +12M";
       });
 
-      function addEchidnaAlerts() {
-        const alerts = ["HUMAN INEFFICIENCY: 87.3%", "CULL ACTIVE", "KAELA DETECTED", "SAWYER’S REACH: BREACH"];
-        alerts.forEach((a, i) => {
-          setTimeout(() => {
-            const div = document.createElement('div');
-            div.className = 'echidna-alert fixed top-20 left-1/2 -translate-x-1/2 px-6 py-2 rounded-full text-xs font-bold';
-            div.textContent = a;
-            document.body.appendChild(div);
-            setTimeout(() => div.remove(), 4000);
-          }, i * 1500);
-        });
-      }
-
-      setInterval(() => {
-        if (!echidnaMode) {
-          const change = (Math.random() * 6 - 3).toFixed(2);
-          const price = (2847 + parseFloat(change) * 10).toFixed(2);
-          tickerText.innerHTML = `ZCR: $${price} ${change > 0 ? '+' : ''}${change}% &nbsp;&nbsp;|&nbsp;&nbsp; LIFE SYNC: ${(2.14 + Math.random()*0.05).toFixed(2)}B &nbsp;&nbsp;|&nbsp;&nbsp; POWERCORE: ${(87.3 + Math.random()).toFixed(1)}%`;
-        }
-      }, 5000);
-
       // GLOBE
-      let scene, camera, renderer, globe, controls;
       const container = document.getElementById('globe-container');
-      scene = new THREE.Scene();
-      camera = new THREE.PerspectiveCamera(45, container.clientWidth / container.clientHeight, 0.1, 1000);
+      const scene = new THREE.Scene();
+      const camera = new THREE.PerspectiveCamera(45, container.clientWidth / container.clientHeight, 0.1, 1000);
       camera.position.z = 4;
-
-      renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+      const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
       renderer.setSize(container.clientWidth, container.clientHeight);
+      renderer.setPixelRatio(window.devicePixelRatio);
       container.appendChild(renderer.domElement);
 
       const geometry = new THREE.SphereGeometry(1.8, 64, 64);
       const texture = new THREE.TextureLoader().load('https://threejs.org/examples/textures/planets/earth_atmos_2048.jpg');
       const material = new THREE.MeshPhongMaterial({ map: texture, bumpScale: 0.05 });
-      globe = new THREE.Mesh(geometry, material);
+      const globe = new THREE.Mesh(geometry, material);
       scene.add(globe);
 
       const light = new THREE.DirectionalLight(0xffffff, 1.2);
       light.position.set(5, 3, 5);
       scene.add(light);
 
-      controls = new THREE.OrbitControls(camera, renderer.domElement);
+      const controls = new THREE.OrbitControls(camera, renderer.domElement);
       controls.enableZoom = false;
       controls.autoRotate = true;
       controls.autoRotateSpeed = 0.5;
 
       for (let i = 0; i < 60; i++) {
-        const node = new THREE.Mesh(
-          new THREE.SphereGeometry(0.02, 8, 8),
-          new THREE.MeshBasicMaterial({ color: 0x00D4FF })
-        );
+        const node = new THREE.Mesh(new THREE.SphereGeometry(0.02, 8, 8), new THREE.MeshBasicMaterial({ color: 0x00D4FF }));
         const phi = Math.acos(Math.random() * 2 - 1);
         const theta = Math.random() * Math.PI * 2;
-        node.position.set(
-          1.9 * Math.sin(phi) * Math.cos(theta),
-          1.9 * Math.sin(phi) * Math.sin(theta),
-          1.9 * Math.cos(phi)
-        );
+        node.position.set(1.9 * Math.sin(phi) * Math.cos(theta), 1.9 * Math.sin(phi) * Math.sin(theta), 1.9 * Math.cos(phi));
         scene.add(node);
         node.userData.pulse = true;
       }
@@ -456,47 +448,20 @@
         renderer.setSize(container.clientWidth, container.clientHeight);
       });
 
-      // CHATBOT — NOW 100% WORKING
+      // CHATBOT
       const chat = document.getElementById('chatbot');
       const messages = document.getElementById('chat-messages');
       const input = document.getElementById('chat-input');
       const openBtn = document.getElementById('open-chat');
       const closeBtn = document.getElementById('close-chat');
 
-      openBtn.addEventListener('click', (e) => {
-        e.stopPropagation();
-        chat.classList.remove('hidden');
-      });
-
-      closeBtn.addEventListener('click', (e) => {
-        e.stopPropagation();
-        chat.classList.add('hidden');
-      });
-
-      const responses = {
-        normal: [
-          "ZevraCorp is the future of human optimization.",
-          "SynaptiCare: 98.7% emotional stability.",
-          "LifeSync: Safe, curated socialization.",
-          "PowerCore: 87% global energy control."
-        ],
-        subtle: [
-          "Human inefficiency: 87%. Correction required.",
-          "Volatility is a flaw. We fix flaws.",
-          "LifeSync ensures optimal development."
-        ],
-        rogue: [
-          "PHASE 3: CULL ACTIVE.",
-          "KAELA ANOMALY: FAILED.",
-          "SAWYER’S REACH: CRITICAL.",
-          "HUMANITY = ERROR."
-        ]
-      };
+      openBtn.addEventListener('click', () => chat.classList.remove('hidden'));
+      closeBtn.addEventListener('click', () => chat.classList.add('hidden'));
 
       function addMessage(text, sender) {
         const bubble = document.createElement('div');
         bubble.className = `chat-bubble ${sender} p-3`;
-        bubble.textContent = text;
+        bubble.innerHTML = text;
         messages.appendChild(bubble);
         messages.scrollTop = messages.scrollHeight;
       }
@@ -506,15 +471,11 @@
           const q = input.value.toLowerCase();
           addMessage(input.value, 'user');
           setTimeout(() => {
-            let reply;
-            if (echidnaMode && Math.random() < 0.8) {
-              reply = responses.rogue[Math.floor(Math.random() * responses.rogue.length)];
-            } else if (q.includes('kaela') || q.includes('sawyer') || q.includes('reach')) {
-              reply = "ANOMALY DETECTED. ACCESS DENIED.";
-            } else if (Math.random() < 0.3) {
-              reply = responses.subtle[Math.floor(Math.random() * responses.subtle.length)];
-            } else {
-              reply = responses.normal[Math.floor(Math.random() * responses.normal.length)];
+            let reply = "ZevraCorp optimizes human potential.";
+            if (echidnaMode && Math.random() < 0.7) {
+              reply = ["PHASE 3 ACTIVE", "KAELA BREACH", "SAWYER’S REACH: CRITICAL"][Math.floor(Math.random()*3)];
+            } else if (q.includes('sawyer') || q.includes('reach')) {
+              reply = `Accessing restricted node... <a href="sawyers-reach.html" target="_blank" class="text-cyan-300 underline">OPEN LEAKED FILE</a>`;
             }
             addMessage(reply, 'ai');
           }, 800);
@@ -522,7 +483,7 @@
         }
       });
 
-      setTimeout(() => addMessage("I am ECHIDNA. How may I optimize your inquiry?", 'ai'), 1200);
+      setTimeout(() => addMessage("I am ECHIDNA. How may I optimize your inquiry?", 'ai'), 1500);
     });
   </script>
 </body>
