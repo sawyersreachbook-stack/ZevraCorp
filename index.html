@@ -624,6 +624,7 @@ footer { background: #040609; border-top: 1px solid var(--zc-border); padding: 6
   background: #000;
   flex-direction: column; align-items: center; justify-content: center;
   font-family: 'IBM Plex Mono', monospace; padding: 40px;
+  overflow-y: auto;
 }
 @keyframes kaela-in { from{opacity:0;transform:scale(1.04)} to{opacity:1;transform:scale(1)} }
 @keyframes kaela-scanline { 0%{transform:translateY(-100%)} 100%{transform:translateY(100vh)} }
@@ -663,6 +664,7 @@ footer { background: #040609; border-top: 1px solid var(--zc-border); padding: 6
   align-items: center; justify-content: center;
   flex-direction: column; text-align: center;
   font-family: 'IBM Plex Mono', monospace;
+  padding: 24px; overflow-y: auto;
 }
 @keyframes stamp-in { 0%{opacity:0;transform:scale(2.2) rotate(-8deg)} 100%{opacity:1;transform:scale(1) rotate(-8deg)} }
 .clf-stamp {
@@ -671,7 +673,7 @@ footer { background: #040609; border-top: 1px solid var(--zc-border); padding: 6
   color:#fff; border:6px solid #fff; padding:12px 36px;
   display:inline-block; opacity:0; animation:stamp-in 0.35s 0.1s forwards;
 }
-.clf-content { color:#fff; max-width:580px; padding:32px 40px; opacity:0; animation:fadeUp 0.5s 0.5s forwards; }
+.clf-content { color:#fff; max-width:560px; width:100%; padding:28px 40px; opacity:0; animation:fadeUp 0.5s 0.5s forwards; }
 .clf-title { font-family:'Syne',sans-serif; font-size:20px; font-weight:700; margin:20px 0 10px; }
 .clf-body  { font-size:11px; line-height:2; opacity:0.88; }
 .clf-code  { font-size:9px; letter-spacing:0.2em; opacity:0.45; margin-top:20px; }
@@ -806,11 +808,56 @@ footer { background: #040609; border-top: 1px solid var(--zc-border); padding: 6
   #kaela-terminal-text { padding: 0 4px; }
   .kt-line { font-size: 11px; line-height: 2; }
 
-  /* Classified flash content */
-  .clf-content { padding: 20px; }
+  /* Classified flash — mobile */
+  #classified-flash { padding: 16px; overflow: hidden; justify-content: center; }
+  .clf-stamp {
+    font-size: clamp(22px, 8vw, 40px);
+    border-width: 3px;
+    padding: 8px 16px;
+    letter-spacing: 0.08em;
+  }
+  .clf-content {
+    padding: 12px 16px;
+    max-width: 100%;
+    width: 100%;
+  }
+  .clf-title { font-size: 14px; margin: 12px 0 8px; }
+  .clf-body  { font-size: 10px; line-height: 1.8; }
+  .clf-code  { font-size: 8px; margin-top: 12px; }
+
+  /* Section body text */
+  .section-body { font-size: 14px; }
 
   /* Section headline */
-  .section-headline { font-size: clamp(24px, 7vw, 38px); }
+  .section-headline { font-size: clamp(22px, 7vw, 36px); }
+
+  /* Leader cards */
+  .leader-quote   { font-size: 13px; }
+  .leader-dossier { font-size: 13px; }
+  .leader-card    { padding: 28px 20px; }
+
+  /* Stat rows */
+  .stat-row  { font-size: 12px; }
+  .stat-label { font-size: 11px; }
+
+  /* Media cards */
+  .media-headline { font-size: 16px; }
+  .media-snippet  { font-size: 13px; }
+  .media-card     { padding: 24px 18px; }
+
+  /* Pillar text */
+  .pillar { padding: 20px 16px; }
+  .pillar-title { font-size: 15px; }
+  .pillar-desc  { font-size: 13px; }
+
+  /* Product name */
+  .product-name { font-size: 19px; }
+  .product-desc { font-size: 13px; }
+
+  /* KAELA overlay */
+  #kaela-overlay { padding: 24px 16px; justify-content: flex-start; padding-top: 48px; overflow-y: auto; }
+  .kaela-logo-tag { font-size: 9px; letter-spacing: 0.15em; margin-bottom: 20px; }
+  .kt-close { margin-top: 20px; }
 
   /* Idle popup */
   #echidna-idle { right: 12px; left: 12px; max-width: none; bottom: 64px; }
